@@ -6,9 +6,9 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>show_time</title>
+    <title>记录胎动</title>
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-</head>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico"></head>
 
 <body>
 <div th:class="container-fluid">
@@ -51,14 +51,19 @@
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 
+    //记录点击次数
     var cou = 0;
+    //是否可以点击的临时变量，0:可以点击;1:不可点击
     var temp = 0;
+    //点击时间，用来判断5分钟内是否可以再次点击
+    var countTime;
 
     function count() {
         if (temp == 0) {
             cou++;
             document.getElementById("show_count").innerHTML = cou;
             temp = 1;
+            countTime=new Date().getTime();
         } else {
             alert("5分钟内只能点击一次")
         }
@@ -81,8 +86,9 @@
         min=toFixed(min,0);
         sec=toFixed(sec,0);
 
+
         if (min < 59) {
-            if (sec == 0 && min % 5 == 0 && temp == 1) {
+            if (temp == 1 && (nowDate-countTime)>(60*1000*5)) {
                 temp = 0;
             }
         } else {
