@@ -87,7 +87,7 @@
         sec=toFixed(sec,0);
 
 
-        if (min < 59) {
+        if (min < 60) {
             if (temp == 1 && (nowDate-countTime)>(60*1000*5)) {
                 temp = 0;
             }
@@ -117,9 +117,10 @@
 
     function stop() {
         window.clearInterval(interval);
-        alert("胎动次数为：" + cou + "次");
 
         window.location.href = "/fetal?count=" + cou;
+
+        alert("胎动次数为：" + cou + "次");
 
     }
 
